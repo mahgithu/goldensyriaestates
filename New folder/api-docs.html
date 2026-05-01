@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وثائق API — العقارات السورية الذهبية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2L2 10v16h8v-8h8v8h8V10L14 2z" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="28" y2="28"><stop offset="0%" stop-color="#C9A227"/><stop offset="100%" stop-color="#F0C040"/></linearGradient></defs></svg></div>
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link">العقارات</a></li>
+        <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">الرئيسية</a><span>›</span><a href="dashboard.html">لوحة التحكم</a><span>›</span><span>وثائق API</span></div>
+      <h1>🔌 وثائق API</h1>
+      <p>مرجع كامل لجميع endpoints المتاحة على منصة العقارات السورية الذهبية</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div class="api-layout">
+        <!-- Sidebar Nav -->
+        <nav class="api-nav">
+          <h4>العقارات</h4>
+          <a href="#get-properties">GET /properties</a>
+          <a href="#get-property">GET /properties/:id</a>
+          <a href="#post-property">POST /properties</a>
+          <a href="#put-property">PUT /properties/:id</a>
+          <a href="#delete-property">DELETE /properties/:id</a>
+          <h4>جهات الاتصال</h4>
+          <a href="#get-contacts">GET /contacts</a>
+          <a href="#post-contact">POST /contacts</a>
+          <a href="#put-contact">PUT /contacts/:id</a>
+          <a href="#delete-contact">DELETE /contacts/:id</a>
+          <h4>Webhooks</h4>
+          <a href="#webhooks">POST /webhooks</a>
+          <a href="#webhook-events">الأحداث المتاحة</a>
+        </nav>
+
+        <!-- Endpoints -->
+        <div>
+          <!-- Base URL -->
+          <div class="glass-card" style="padding:20px;margin-bottom:24px;border-color:rgba(201,162,39,0.3);">
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:6px;">Base URL</p>
+            <code style="font-family:monospace;font-size:1rem;color:var(--gold-400);">https://api.aqari-syria.sy/v1</code>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:8px;">جميع الطلبات يجب أن تحتوي على Header: <code style="color:var(--emerald);">Authorization: Bearer YOUR_API_KEY</code></p>
+          </div>
+
+          <!-- GET Properties -->
+          <div class="endpoint-card" id="get-properties">
+            <div class="endpoint-header">
+              <span class="method-badge method-get">GET</span>
+              <span class="endpoint-path">/api/properties</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;">جلب قائمة العقارات مع دعم الفلاتر والتصفح.</p>
+            <div style="margin-top:12px;">
+              <p style="font-size:0.82rem;color:var(--text-muted);font-weight:700;margin-bottom:8px;">Query Parameters:</p>
+              <table style="width:100%;font-size:0.82rem;border-collapse:collapse;">
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--gold-400);font-family:monospace;">gov</td><td style="padding:6px 12px;color:var(--text-muted);">string</td><td style="color:var(--text-secondary);">معرّف المحافظة (مثال: damascus)</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--gold-400);font-family:monospace;">type</td><td style="padding:6px 12px;color:var(--text-muted);">string</td><td style="color:var(--text-secondary);">نوع العقار (apartment, villa, land...)</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--gold-400);font-family:monospace;">listing</td><td style="padding:6px 12px;color:var(--text-muted);">string</td><td style="color:var(--text-secondary);">نوع العرض (sale, rent, invest)</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--gold-400);font-family:monospace;">min_price</td><td style="padding:6px 12px;color:var(--text-muted);">number</td><td style="color:var(--text-secondary);">الحد الأدنى للسعر بالليرة السورية</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--gold-400);font-family:monospace;">max_price</td><td style="padding:6px 12px;color:var(--text-muted);">number</td><td style="color:var(--text-secondary);">الحد الأعلى للسعر</td></tr>
+                <tr><td style="padding:6px 0;color:var(--gold-400);font-family:monospace;">page</td><td style="padding:6px 12px;color:var(--text-muted);">number</td><td style="color:var(--text-secondary);">رقم الصفحة (افتراضي: 1)</td></tr>
+              </table>
+            </div>
+            <div class="code-block">GET /api/properties?gov=damascus&amp;type=apartment&amp;listing=sale&amp;page=1
+
+// Response 200 OK
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "شقة فاخرة في قلب دمشق",
+      "type": "apartment",
+      "listing": "sale",
+      "gov": "damascus",
+      "price": 450000000,
+      "area": 180,
+      "rooms": 4,
+      "featured": true,
+      "views": 1240
+    }
+  ],
+  "pagination": { "page": 1, "total": 45, "pages": 5 }
+}</div>
+          </div>
+
+          <!-- POST Property -->
+          <div class="endpoint-card" id="post-property">
+            <div class="endpoint-header">
+              <span class="method-badge method-post">POST</span>
+              <span class="endpoint-path">/api/properties</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;">إضافة عقار جديد إلى المنصة.</p>
+            <div class="code-block">POST /api/properties
+Content-Type: application/json
+
+// Request Body
+{
+  "title": "شقة 3 غرف في حلب",
+  "type": "apartment",
+  "listing": "sale",
+  "gov": "aleppo",
+  "city": "الشهباء",
+  "area": 150,
+  "price": 300000000,
+  "rooms": 3,
+  "baths": 2,
+  "desc": "وصف العقار...",
+  "features": ["موقف سيارة", "تكييف"],
+  "agent": "اسم الوكيل",
+  "agentPhone": "0991234567"
+}
+
+// Response 201 Created
+{
+  "success": true,
+  "data": { "id": 123, ... },
+  "message": "تم إضافة العقار بنجاح"
+}</div>
+          </div>
+
+          <!-- GET Contacts -->
+          <div class="endpoint-card" id="get-contacts">
+            <div class="endpoint-header">
+              <span class="method-badge method-get">GET</span>
+              <span class="endpoint-path">/api/contacts</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;">جلب قائمة جهات الاتصال.</p>
+            <div class="code-block">GET /api/contacts?type=agent&amp;gov=damascus
+
+// Response 200 OK
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "أحمد الخطيب",
+      "type": "agent",
+      "phone": "0991234567",
+      "gov": "damascus",
+      "rating": 4.9,
+      "deals": 142
+    }
+  ]
+}</div>
+          </div>
+
+          <!-- Webhooks -->
+          <div class="endpoint-card" id="webhooks">
+            <div class="endpoint-header">
+              <span class="method-badge method-post">POST</span>
+              <span class="endpoint-path">/api/webhooks</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;">تسجيل Webhook URL لاستقبال الأحداث تلقائياً.</p>
+            <div class="code-block">POST /api/webhooks
+Content-Type: application/json
+
+{
+  "url": "https://your-app.com/webhook",
+  "events": ["property.created", "contact.inquiry", "property.updated"],
+  "secret": "your_secret_key"
+}
+
+// Response 201 Created
+{
+  "success": true,
+  "webhook_id": "wh_abc123",
+  "message": "تم تسجيل Webhook بنجاح"
+}</div>
+          </div>
+
+          <!-- Webhook Events -->
+          <div class="endpoint-card" id="webhook-events">
+            <h3 style="font-weight:700;margin-bottom:16px;">📡 الأحداث المتاحة</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <code style="color:var(--gold-400);font-size:0.82rem;">property.created</code>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">عند إضافة عقار جديد</p>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <code style="color:var(--gold-400);font-size:0.82rem;">property.updated</code>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">عند تحديث بيانات عقار</p>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <code style="color:var(--gold-400);font-size:0.82rem;">property.deleted</code>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">عند حذف عقار</p>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <code style="color:var(--gold-400);font-size:0.82rem;">contact.inquiry</code>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">عند إرسال استفسار</p>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <code style="color:var(--gold-400);font-size:0.82rem;">contact.created</code>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">عند إضافة جهة اتصال</p>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <code style="color:var(--gold-400);font-size:0.82rem;">property.viewed</code>
+                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">عند عرض تفاصيل عقار</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:24px;"><p>© 2025 العقارات السورية الذهبية — وثائق API v1.0</p></div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // الحماية: السماح فقط للمدير برؤية الوثائق
+    document.addEventListener('DOMContentLoaded', () => {
+      requireAdmin('index.html');
+    });
+  </script>
+</body>
+</html>
+
