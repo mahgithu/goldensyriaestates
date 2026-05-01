@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="إدارة جهات الاتصال — وكلاء عقاريون، بائعون، مشترون في سوريا">
+  <title>جهات الاتصال — العقارات السورية الذهبية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="العقارات السورية الذهبية">
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link">أضف عقارك</a></li>
+        <li><a href="contacts.html" class="nav-link active">جهات الاتصال</a></li>
+        <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" onclick="openModal('addContactModal')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          إضافة جهة اتصال
+        </button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">الرئيسية</a><span>›</span><span>جهات الاتصال</span></div>
+      <h1>📞 إدارة جهات الاتصال</h1>
+      <p>وكلاء عقاريون، بائعون، مشترون — كل جهات اتصالك في مكان واحد</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <!-- Toolbar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <input type="text" id="contactSearch" class="form-control" placeholder="🔍 بحث بالاسم أو التخصص..." style="max-width:280px;" oninput="renderContacts()">
+          <select id="contactTypeFilter" class="form-control" style="max-width:160px;" onchange="renderContacts()">
+            <option value="">كل الأنواع</option>
+            <option value="agent">وكيل عقاري</option>
+            <option value="owner">مالك عقار</option>
+            <option value="buyer">مشتري / مستأجر</option>
+          </select>
+          <select id="contactGovFilter" class="form-control" style="max-width:160px;" onchange="renderContacts()">
+            <option value="">كل المحافظات</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('addContactModal')">
+          + إضافة جهة اتصال
+        </button>
+      </div>
+
+      <div class="contacts-layout">
+        <!-- List -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <span id="contactsCount" style="font-size:0.85rem;color:var(--text-muted);">0 جهة اتصال</span>
+          </div>
+          <div class="contacts-list" id="contactsList"></div>
+        </div>
+        <!-- Detail Panel -->
+        <div id="contactDetailPanel">
+          <div class="contact-detail-card" id="contactDetail">
+            <div style="text-align:center;padding:40px;color:var(--text-muted);">
+              <div style="font-size:3rem;margin-bottom:12px;">👈</div>
+              <p>اختر جهة اتصال لعرض التفاصيل</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add/Edit Contact Modal -->
+  <div class="modal-overlay" id="addContactModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="contactModalTitle">إضافة جهة اتصال جديدة</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editContactId">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">الاسم الكامل *</label>
+            <input type="text" id="cName" class="form-control" placeholder="الاسم الكامل">
+          </div>
+          <div class="form-group">
+            <label class="form-label">النوع</label>
+            <select id="cType" class="form-control">
+              <option value="agent">وكيل عقاري</option>
+              <option value="owner">مالك عقار</option>
+              <option value="buyer">مشتري / مستأجر</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">رقم الهاتف *</label>
+            <input type="tel" id="cPhone" class="form-control" placeholder="09XXXXXXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">البريد الإلكتروني</label>
+            <input type="email" id="cEmail" class="form-control" placeholder="example@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">المحافظة</label>
+            <select id="cGov" class="form-control">
+              <option value="">اختر المحافظة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">التخصص</label>
+            <input type="text" id="cSpeciality" class="form-control" placeholder="مثال: شقق دمشق">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ملاحظات</label>
+          <textarea id="cNotes" class="form-control" rows="3" placeholder="أي ملاحظات إضافية..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-sm" onclick="closeModal('addContactModal')">إلغاء</button>
+        <button class="btn btn-primary btn-sm" onclick="saveContactForm()">حفظ جهة الاتصال</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:24px;"><p>© 2025 العقارات السورية الذهبية</p></div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/contacts.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تفاصيل العقار — العقارات السورية الذهبية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="العقارات السورية الذهبية">
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link active">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link">أضف عقارك</a></li>
+        <li><a href="contacts.html" class="nav-link">جهات الاتصال</a></li>
+        <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="sell.html" class="btn btn-primary btn-sm">أضف عقاراً</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div style="padding-top:70px;" id="detailContent">
+    <div class="container" style="padding-top:32px;">
+      <div class="breadcrumb" id="breadcrumb">
+        <a href="index.html">الرئيسية</a><span>›</span>
+        <a href="properties.html">العقارات</a><span>›</span>
+        <span id="breadcrumbTitle">تفاصيل العقار</span>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="container" style="margin-top:20px;" id="gallerySection">
+      <div class="detail-gallery">
+        <div class="detail-main-img" id="mainImg">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--text-muted);">
+            <span id="mainIcon" style="font-size:5rem;">🏠</span>
+            <span id="mainType" style="font-size:1rem;"></span>
+          </div>
+        </div>
+        <div class="detail-sub-imgs">
+          <div class="detail-sub-img" style="background:var(--navy-700);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:2rem;">📍</div>
+          <div class="detail-sub-img" style="background:var(--navy-600);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:2rem;">🗺️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail Body -->
+    <div class="container">
+      <div class="detail-layout">
+        <!-- Left: Info -->
+        <div>
+          <div id="propHeader" style="margin-bottom:24px;"></div>
+          <div class="detail-specs" id="propSpecs"></div>
+          <div class="glass-card" style="padding:24px;margin-bottom:24px;" id="propDesc"></div>
+          <div class="glass-card" style="padding:24px;margin-bottom:24px;" id="propFeatures"></div>
+          <div class="glass-card" style="padding:24px;" id="propLocation"></div>
+        </div>
+        <!-- Right: Contact -->
+        <div class="detail-sticky">
+          <div class="contact-card" id="contactCard"></div>
+          <div class="glass-card" style="padding:20px;margin-top:16px;text-align:center;">
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:12px;">هل تريد بيع عقار مشابه؟</p>
+            <a href="sell.html" class="btn btn-outline" style="width:100%;justify-content:center;">أضف عقارك مجاناً</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Similar Properties -->
+      <div style="margin-top:48px;" id="similarSection">
+        <div class="section-header">
+          <div><div class="section-badge">قد يعجبك أيضاً</div><h2 class="section-title">عقارات مشابهة</h2></div>
+          <a href="properties.html" class="btn btn-outline">عرض الكل</a>
+        </div>
+        <div class="properties-grid" id="similarGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>التواصل مع البائع</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">اسمك الكامل</label>
+          <input type="text" id="inquiryName" class="form-control" placeholder="أدخل اسمك">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف</label>
+          <input type="tel" id="inquiryPhone" class="form-control" placeholder="09XXXXXXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label">البريد الإلكتروني</label>
+          <input type="email" id="inquiryEmail" class="form-control" placeholder="example@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رسالتك</label>
+          <textarea id="inquiryMsg" class="form-control" rows="4" placeholder="أنا مهتم بهذا العقار، أرجو التواصل معي..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-sm" onclick="closeModal('contactModal')">إلغاء</button>
+        <button class="btn btn-primary btn-sm" onclick="sendInquiry()">إرسال الاستفسار</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:24px;"><p>© 2025 العقارات السورية الذهبية</p></div>
+    </div>
+  </footer>
+
+  <!-- Support Modal -->
+  <div class="modal-overlay" id="supportModal">
+    <div class="modal" style="max-width:480px">
+      <div class="support-modal-header">
+        <div class="support-modal-icon">💬</div>
+        <h2>خدمة العملاء</h2>
+        <p style="color:var(--text-muted)">اترك رسالتك وسنقوم بالرد عليك في أقرب وقت</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" id="suppName" class="form-control" placeholder="أدخل اسمك">
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف / واتساب</label>
+          <input type="text" id="suppPhone" class="form-control" placeholder="09xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>رسالتك أو استفسارك</label>
+          <textarea id="suppMsg" class="form-control" rows="4" placeholder="اكتب استفسارك هنا..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('supportModal')">إلغاء</button>
+        <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="submitSupportMsg()">إرسال الاستفسار</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/property-detail.js"></script>
+</body>
+</html>
+
