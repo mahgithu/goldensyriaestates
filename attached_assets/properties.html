@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="تصفح آلاف العقارات في جميع المحافظات السورية — شقق، فلل، أراضي، محلات تجارية للبيع والإيجار">
+  <title>العقارات — العقارات السورية الذهبية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="العقارات السورية الذهبية">
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link" id="nav-home">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link active">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link">أضف عقارك</a></li>
+        <li><a href="contacts.html" class="nav-link">جهات الاتصال</a></li>
+        <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="sell.html" class="btn btn-primary btn-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>أضف عقاراً</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">الرئيسية</a><span>›</span><span>العقارات</span></div>
+      <h1>تصفح العقارات</h1>
+      <p>ابحث في أكبر قاعدة بيانات عقارية في سوريا</p>
+    </div>
+  </div>
+
+  <!-- Quick Search Bar -->
+  <div style="background:var(--navy-800);border-bottom:1px solid var(--border);padding:16px 0;">
+    <div class="container">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <input type="text" id="quickSearch" class="form-control" placeholder="🔍 ابحث بالعنوان أو المدينة..." style="flex:1;min-width:200px;max-width:360px;">
+        <select id="filterGov" class="form-control" style="max-width:160px;" onchange="applyFilters()">
+          <option value="">كل المحافظات</option>
+        </select>
+        <select id="filterType" class="form-control" style="max-width:150px;" onchange="applyFilters()">
+          <option value="">كل الأنواع</option>
+        </select>
+        <select id="filterListing" class="form-control" style="max-width:140px;" onchange="applyFilters()">
+          <option value="">الكل</option>
+          <option value="sale">للبيع</option>
+          <option value="rent">للإيجار</option>
+          <option value="invest">للاستثمار</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="clearFilters()">مسح الفلاتر</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div class="props-layout">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar">
+          <div class="filter-header">
+            <h3>🔧 الفلاتر</h3>
+            <button class="btn btn-ghost btn-sm" onclick="clearFilters()">مسح الكل</button>
+          </div>
+
+          <div class="filter-section">
+            <h4>نوع العقار</h4>
+            <div class="filter-options" id="typeFilters"></div>
+          </div>
+
+          <div class="filter-section">
+            <h4>نوع العرض</h4>
+            <div class="filter-options" id="listingFilters">
+              <div class="filter-option" data-val="sale" data-group="listing" onclick="toggleFilter(this)">
+                <div class="filter-checkbox"><svg width="10" height="10" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#0A1628" stroke-width="2" class="checkmark"/></svg></div>
+                <span>للبيع</span>
+              </div>
+              <div class="filter-option" data-val="rent" data-group="listing" onclick="toggleFilter(this)">
+                <div class="filter-checkbox"><svg width="10" height="10" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#0A1628" stroke-width="2" class="checkmark"/></svg></div>
+                <span>للإيجار</span>
+              </div>
+              <div class="filter-option" data-val="invest" data-group="listing" onclick="toggleFilter(this)">
+                <div class="filter-checkbox"><svg width="10" height="10" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#0A1628" stroke-width="2" class="checkmark"/></svg></div>
+                <span>للاستثمار</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>المحافظة</h4>
+            <div class="filter-options" id="govFilters"></div>
+          </div>
+
+          <div class="filter-section">
+            <h4>نطاق السعر (ل.س)</h4>
+            <div class="price-range">
+              <input type="number" id="priceMin" placeholder="الحد الأدنى" oninput="applyFilters()">
+              <span style="color:var(--text-muted)">—</span>
+              <input type="number" id="priceMax" placeholder="الحد الأعلى" oninput="applyFilters()">
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>المساحة (م²)</h4>
+            <div class="price-range">
+              <input type="number" id="areaMin" placeholder="من" oninput="applyFilters()">
+              <span style="color:var(--text-muted)">—</span>
+              <input type="number" id="areaMax" placeholder="إلى" oninput="applyFilters()">
+            </div>
+          </div>
+
+          <div class="filter-section" style="border-bottom:none;padding-bottom:0;">
+            <h4>خيارات إضافية</h4>
+            <div class="filter-options">
+              <div class="filter-option" data-val="featured" data-group="special" onclick="toggleFilter(this)">
+                <div class="filter-checkbox"></div><span>⭐ مميزة فقط</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div>
+          <div class="results-toolbar">
+            <div class="results-count">عرض <strong id="resultsCount">0</strong> عقار</div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <select id="sortSelect" class="sort-select" onchange="applyFilters()">
+                <option value="date-desc">الأحدث أولاً</option>
+                <option value="date-asc">الأقدم أولاً</option>
+                <option value="price-asc">السعر: الأقل أولاً</option>
+                <option value="price-desc">السعر: الأعلى أولاً</option>
+                <option value="area-desc">المساحة: الأكبر</option>
+                <option value="views-desc">الأكثر مشاهدة</option>
+              </select>
+              <div class="view-toggle">
+                <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="شبكة">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                </button>
+                <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="قائمة">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="properties-grid" id="propertiesGrid"></div>
+          <div id="emptyState" class="empty-state" style="display:none;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <h3>لا توجد عقارات تطابق بحثك</h3>
+            <p>جرب تغيير الفلاتر أو البحث بكلمة مختلفة</p>
+            <button class="btn btn-outline" style="margin-top:16px;" onclick="clearFilters()">مسح الفلاتر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:24px;"><p>© 2025 العقارات السورية الذهبية</p></div>
+    </div>
+  </footer>
+
+  <!-- Support Modal -->
+  <div class="modal-overlay" id="supportModal">
+    <div class="modal" style="max-width:480px">
+      <div class="support-modal-header">
+        <div class="support-modal-icon">💬</div>
+        <h2>خدمة العملاء</h2>
+        <p style="color:var(--text-muted)">اترك رسالتك وسنقوم بالرد عليك في أقرب وقت</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" id="suppName" class="form-control" placeholder="أدخل اسمك">
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف / واتساب</label>
+          <input type="text" id="suppPhone" class="form-control" placeholder="09xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>رسالتك أو استفسارك</label>
+          <textarea id="suppMsg" class="form-control" rows="4" placeholder="اكتب استفسارك هنا..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('supportModal')">إلغاء</button>
+        <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="submitSupportMsg()">إرسال الاستفسار</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/properties.js"></script>
+</body>
+</html>
+
