@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم — العقارات السورية الذهبية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="العقارات السورية الذهبية">
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link">أضف عقارك</a></li>
+        <li><a href="contacts.html" class="nav-link">جهات الاتصال</a></li>
+        <li><a href="dashboard.html" class="nav-link active">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="sell.html" class="btn btn-primary btn-sm">+ إضافة عقار</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">الرئيسية</a><span>›</span><span>لوحة التحكم</span></div>
+      <h1>📊 لوحة التحكم</h1>
+      <p>نظرة شاملة على نشاط المنصة والإحصائيات</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+
+      <!-- Stats Cards -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-icon gold"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div><div class="stat-value" id="statProps">0</div><div class="stat-label">إجمالي العقارات</div><div class="stat-change up" id="statPropsChange"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon emerald"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><div class="stat-value" id="statContacts">0</div><div class="stat-label">جهات الاتصال</div><div class="stat-change up" id="statContactsChange"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon indigo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div><div class="stat-value" id="statViews">0</div><div class="stat-label">إجمالي المشاهدات</div><div class="stat-change up">↑ هذا الشهر</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon rose"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div><div class="stat-value" id="statFeatured">0</div><div class="stat-label">عقارات مميزة</div><div class="stat-change up">نشطة</div></div>
+        </div>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Left: Latest Properties Table -->
+        <div>
+          <div class="table-card">
+            <div class="table-card-header">
+              <h3>🏠 أحدث العقارات</h3>
+              <a href="properties.html" class="btn btn-outline btn-sm">عرض الكل</a>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="data-table" id="propsTable">
+                <thead>
+                  <tr>
+                    <th>العقار</th>
+                    <th>المحافظة</th>
+                    <th>النوع</th>
+                    <th>السعر</th>
+                    <th>المشاهدات</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="propsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Distribution by Governorate -->
+          <div class="table-card" style="margin-top:20px;">
+            <div class="table-card-header"><h3>🗺️ توزيع العقارات حسب المحافظة</h3></div>
+            <div style="padding:20px;" id="govDistribution"></div>
+          </div>
+        </div>
+
+        <!-- Right sidebar -->
+        <div>
+          <!-- Webhooks Log -->
+          <div class="table-card" style="margin-bottom:20px;">
+            <div class="table-card-header">
+              <h3>🔌 سجل Webhooks</h3>
+              <span class="badge badge-emerald pulse-dot">مباشر</span>
+            </div>
+            <div style="padding:16px;max-height:240px;overflow-y:auto;" id="webhooksLog">
+              <p style="color:var(--text-muted);font-size:0.85rem;text-align:center;">لا توجد أحداث بعد</p>
+            </div>
+          </div>
+
+          <!-- Support Messages -->
+          <div class="table-card" style="margin-bottom:20px;">
+            <div class="table-card-header">
+              <h3>💬 طلبات الشراء ورسائل العملاء</h3>
+              <span class="badge badge-rose pulse-dot" id="unreadMessagesBadge">0</span>
+            </div>
+            <div style="padding:16px;max-height:300px;overflow-y:auto;" id="supportMessagesLog">
+              <p style="color:var(--text-muted);font-size:0.85rem;text-align:center;">لا توجد رسائل</p>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="table-card" style="margin-bottom:20px;">
+            <div class="table-card-header"><h3>⚡ إجراءات سريعة</h3></div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
+              <a href="sell.html" class="btn btn-primary" style="justify-content:center;">+ إضافة عقار جديد</a>
+              <a href="contacts.html" class="btn btn-outline" style="justify-content:center;">+ إضافة جهة اتصال</a>
+              <a href="properties.html" class="btn btn-ghost" style="justify-content:center;">تصفح كل العقارات</a>
+            </div>
+          </div>
+
+          <!-- By Type -->
+          <div class="table-card">
+            <div class="table-card-header"><h3>📊 توزيع حسب النوع</h3></div>
+            <div style="padding:16px;" id="typeDistribution"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users Info -->
+      <div class="table-card" style="margin-top:24px;">
+        <div class="table-card-header">
+          <h3>👥 العملاء المسجلين</h3>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>الاسم</th>
+                <th>البريد الإلكتروني</th>
+                <th>رقم الهاتف</th>
+                <th>تاريخ التسجيل</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Delete Confirm via JS -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:24px;"><p>© 2025 العقارات السورية الذهبية</p></div>
+    </div>
+  </footer>
+
+  <!-- Support Modal -->
+  <div class="modal-overlay" id="supportModal">
+    <div class="modal" style="max-width:480px">
+      <div class="support-modal-header">
+        <div class="support-modal-icon">💬</div>
+        <h2>خدمة العملاء</h2>
+        <p style="color:var(--text-muted)">اترك رسالتك وسنقوم بالرد عليك في أقرب وقت</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" id="suppName" class="form-control" placeholder="أدخل اسمك">
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف / واتساب</label>
+          <input type="text" id="suppPhone" class="form-control" placeholder="09xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>رسالتك أو استفسارك</label>
+          <textarea id="suppMsg" class="form-control" rows="4" placeholder="اكتب استفسارك هنا..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('supportModal')">إلغاء</button>
+        <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="submitSupportMsg()">إرسال الاستفسار</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,166 @@
+هل يمكنك تصحيح الاخطاء  وابعت الخطة بالعربية ماذا فهمت
+You are a senior frontend engineer.
+
+Refactor and improve my real estate website to make it production-ready, modern, and user-friendly.
+
+Apply the following requirements carefully and implement them directly in the code.
+
+------------------------------------
+
+## 🎯 GENERAL GOAL
+Transform the current simple website into a professional real estate platform that is:
+- Trustworthy
+- Clean UI
+- Easy to use
+- Scalable
+
+------------------------------------
+
+## 1. UI / DESIGN IMPROVEMENT
+
+- Redesign the UI to be modern and clean
+- Use a consistent color theme: BLACK + GOLD
+- Add a Hero section with:
+- Main headline
+- "Browse Properties" button
+- "Add Property" button
+- Replace plain layouts with card-based design
+- Make the entire website fully responsive (mobile-first)
+
+------------------------------------
+
+## 2. PROPERTY DISPLAY SYSTEM
+
+Create a reusable property card component that includes:
+- Image
+- Title
+- Price
+- City
+- WhatsApp contact button
+
+Format price like:
+50,000 $
+
+Use:
+toLocaleString()
+
+------------------------------------
+
+## 3. FAKE LISTINGS PREVENTION (VERY IMPORTANT)
+
+Implement a moderation system:
+
+- Every new property must be:
+status: "pending"
+
+- Only show:
+status: "approved"
+
+- Add:
+"Report Property" button → sets status back to "pending"
+
+- Delete or hide all existing fake listings
+
+------------------------------------
+
+## 4. AUTHENTICATION (SIMPLE UX)
+
+Make login very easy:
+
+Support:
+- Phone number (OTP style UI)
+- Google login
+- Email login (simple)
+
+If no backend:
+- Use localStorage to simulate auth
+
+Do NOT overcomplicate forms
+
+------------------------------------
+
+## 5. IMAGE & VIDEO UPLOAD FIX
+
+Fix media upload issues:
+
+- Add image preview before upload
+- Compress large images
+- Validate file size
+
+Use external storage:
+- Cloudinary OR Firebase Storage
+
+For video:
+- DO NOT store locally
+- Use YouTube or Cloudinary video links
+
+------------------------------------
+
+## 6. PRICE SYSTEM (USD)
+
+- Show all prices in USD
+- Format numbers properly
+- Prepare system for future multi-currency support
+
+------------------------------------
+
+## 7. USER EXPERIENCE IMPROVEMENTS
+
+Add:
+- Loading states
+- Success / error messages
+- WhatsApp button per property
+
+Add filters:
+- By price
+- By city
+
+------------------------------------
+
+## 8. PERFORMANCE OPTIMIZATION
+
+- Lazy load images
+- Reduce JS size
+- Optimize rendering
+
+------------------------------------
+
+## 9. SEO BASICS
+
+Add:
+- meta title
+- meta description
+
+Use keywords like:
+- Real estate Syria
+- Apartments for sale
+- Buy house Syria
+
+------------------------------------
+
+## 10. CODE STRUCTURE
+
+Refactor code into:
+- components
+- services
+- utils
+
+Make code:
+- clean
+- reusable
+- maintainable
+
+------------------------------------
+
+## ⚠️ IMPORTANT RULES
+
+- Do NOT break existing functionality
+- Improve, don’t rewrite blindly
+- Keep code readable
+- Use best practices
+
+------------------------------------
+
+## ✅ FINAL RESULT
+
+The website should feel like a real production real estate platform, not a demo
