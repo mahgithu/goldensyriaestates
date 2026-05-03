@@ -7,7 +7,7 @@ function initHomePage() {
     const props = featured.length ? featured : getProperties().slice(0, 6);
     grid.innerHTML = props.map(p => renderPropertyCard(p)).join('');
   }
-  
+
   // Governorates
   const govGrid = document.getElementById('govGrid');
   if (govGrid) {
@@ -21,7 +21,7 @@ function initHomePage() {
       </a>`;
     }).join('');
   }
-  
+
   // Hero stats animation
   document.querySelectorAll('.hero-stat .stat-num').forEach(el => {
     const target = parseInt(el.dataset.count) || 0;
@@ -39,7 +39,7 @@ function doHeroSearch() {
   const gov = document.getElementById('searchGov')?.value || '';
   const type = document.getElementById('searchType')?.value || '';
   const listing = document.querySelector('.search-tab.active')?.dataset.type || 'buy';
-  
+
   let url = 'properties.html?';
   const params = [];
   if (gov) params.push('gov=' + gov);
@@ -47,15 +47,15 @@ function doHeroSearch() {
   if (listing === 'rent') params.push('listing=rent');
   else if (listing === 'invest') params.push('listing=invest');
   else params.push('listing=sale');
-  
+
   window.location.href = url + params.join('&');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   initHomePage();
-  
+
   document.querySelectorAll('.search-tab').forEach(tab => {
-    tab.addEventListener('click', function() {
+    tab.addEventListener('click', function () {
       document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
       this.classList.add('active');
     });
