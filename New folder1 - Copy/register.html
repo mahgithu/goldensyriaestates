@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء حساب — العقارات السورية الذهبية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="العقارات السورية الذهبية">
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link">أضف عقارك</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline btn-sm">تسجيل الدخول</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 20px 60px;">
+    <div class="form-card" style="width:100%;max-width:400px;text-align:center;">
+      <h2 style="font-weight:800;margin-bottom:8px;font-size:1.8rem;">إنشاء حساب جديد</h2>
+      <p style="color:var(--text-muted);margin-bottom:32px;">انضم إلينا لبيع وشراء العقارات بسهولة</p>
+
+      <form id="registerForm" onsubmit="handleRegister(event)" style="text-align:right;">
+        <div class="form-group">
+          <label class="form-label">الاسم الكامل *</label>
+          <input type="text" id="regName" class="form-control" required placeholder="أحمد محمد">
+        </div>
+        <div class="form-group">
+          <label class="form-label">البريد الإلكتروني *</label>
+          <input type="email" id="regEmail" class="form-control" required placeholder="example@domain.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف *</label>
+          <input type="tel" id="regPhone" class="form-control" required placeholder="09XXXXXXXX">
+        </div>
+        <div class="form-group" style="margin-bottom:24px;">
+          <label class="form-label">كلمة المرور *</label>
+          <input type="password" id="regPass" class="form-control" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">إنشاء حساب</button>
+      </form>
+      
+      <p style="margin-top:24px;font-size:0.9rem;color:var(--text-secondary);">لديك حساب بالفعل؟ <a href="login.html" style="color:var(--gold-400);font-weight:700;">تسجيل الدخول</a></p>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    function handleRegister(e) {
+      e.preventDefault();
+      const res = registerUser(
+        document.getElementById('regName').value.trim(),
+        document.getElementById('regEmail').value.trim(),
+        document.getElementById('regPass').value,
+        document.getElementById('regPhone').value.trim()
+      );
+      if (res.success) {
+        window.location.href = 'index.html';
+      } else {
+        alert(res.message);
+      }
+    }
+  </script>
+</body>
+</html>

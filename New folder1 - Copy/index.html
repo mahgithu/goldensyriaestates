@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="العقارات السورية الذهبية - ابحث عن شقتك أو منزلك أو أرضك المثالية في جميع المحافظات السورية">
+  <title>العقارات السورية الذهبية — ابحث عن عقارك المثالي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2L2 10v16h8v-8h8v8h8V10L14 2z" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="28" y2="28"><stop offset="0%" stop-color="#C9A227"/><stop offset="100%" stop-color="#F0C040"/></linearGradient></defs></svg></div>
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link active">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link">أضف عقارك</a></li>
+        <li><a href="contacts.html" class="nav-link">جهات الاتصال</a></li>
+        <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="sell.html" class="btn btn-primary btn-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          أضف عقاراً
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="القائمة">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-particles" id="heroParticles"></div>
+      <div class="hero-gradient"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge fade-in-up">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        العقارات السورية الذهبية — منصتك العقارية الأولى
+      </div>
+      <h1 class="hero-title fade-in-up" style="--delay:0.1s">
+        ابحث عن <span class="text-gradient">عقارك المثالي</span> في سوريا
+      </h1>
+      <p class="hero-subtitle fade-in-up" style="--delay:0.2s">
+        آلاف العقارات في جميع المحافظات السورية — شقق، فلل، أراضي، محلات تجارية
+      </p>
+      <div class="hero-search fade-in-up" style="--delay:0.3s">
+        <div class="search-tabs">
+          <button class="search-tab active" data-type="buy">للبيع</button>
+          <button class="search-tab" data-type="rent">للإيجار</button>
+          <button class="search-tab" data-type="invest">للاستثمار</button>
+        </div>
+        <div class="search-form glass-card">
+          <div class="search-field">
+            <label>المحافظة</label>
+            <select id="searchGov" class="search-select">
+              <option value="">كل المحافظات</option>
+              <option value="damascus">دمشق</option>
+              <option value="aleppo">حلب</option>
+              <option value="homs">حمص</option>
+              <option value="hama">حماة</option>
+              <option value="latakia">اللاذقية</option>
+              <option value="tartus">طرطوس</option>
+              <option value="idlib">إدلب</option>
+              <option value="rif-damascus">ريف دمشق</option>
+            </select>
+          </div>
+          <div class="search-divider"></div>
+          <div class="search-field">
+            <label>نوع العقار</label>
+            <select id="searchType" class="search-select">
+              <option value="">كل الأنواع</option>
+              <option value="apartment">شقة</option>
+              <option value="villa">فيلا</option>
+              <option value="land">أرض</option>
+              <option value="commercial">تجاري</option>
+            </select>
+          </div>
+          <div class="search-divider"></div>
+          <div class="search-field">
+            <label>الميزانية</label>
+            <select id="searchBudget" class="search-select">
+              <option value="">أي سعر</option>
+              <option value="0-50">أقل من 50 مليون</option>
+              <option value="50-150">50 - 150 مليون</option>
+              <option value="150-500">150 - 500 مليون</option>
+              <option value="500+">أكثر من 500 مليون</option>
+            </select>
+          </div>
+          <button class="btn btn-primary search-btn" id="heroSearchBtn" onclick="doHeroSearch()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            بحث
+          </button>
+        </div>
+      </div>
+      <div class="hero-stats fade-in-up" style="--delay:0.4s">
+        <div class="hero-stat"><span class="stat-num" data-count="1240">0</span><span class="stat-label">عقار متاح</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="stat-num" data-count="14">0</span><span class="stat-label">محافظة</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="stat-num" data-count="850">0</span><span class="stat-label">صفقة ناجحة</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="stat-num" data-count="320">0</span><span class="stat-label">وكيل عقاري</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-bar">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><h3>عقارات موثوقة</h3><p>كل العقارات مراجعة ومعتمدة</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><h3>رد سريع</h3><p>تواصل مع البائع خلال دقائق</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div><h3>أسعار شفافة</h3><p>لا رسوم خفية — أسعار واضحة</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><h3>وكلاء محترفون</h3><p>أكثر من 320 وكيل معتمد</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="latest-properties">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-badge">أحدث الإضافات</div>
+          <h2 class="section-title">عقارات مميزة</h2>
+          <p class="section-subtitle">اكتشف أحدث العقارات المضافة على منصتنا</p>
+        </div>
+        <a href="properties.html" class="btn btn-outline">عرض الكل</a>
+      </div>
+      <div class="properties-grid" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <section class="section gov-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-badge">تغطية شاملة</div>
+          <h2 class="section-title">كل المحافظات السورية</h2>
+          <p class="section-subtitle">نغطي جميع محافظات الجمهورية العربية السورية</p>
+        </div>
+      </div>
+      <div class="gov-grid" id="govGrid"></div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card glass-card">
+        <div class="cta-glow"></div>
+        <div class="cta-content">
+          <h2>هل تريد بيع عقارك؟</h2>
+          <p>أضف عقارك مجاناً واوصل إلى آلاف المشترين في جميع أنحاء سوريا</p>
+          <div class="cta-actions">
+            <a href="sell.html" class="btn btn-primary btn-lg">أضف عقارك الآن — مجاناً</a>
+            <a href="contacts.html" class="btn btn-ghost btn-lg">تواصل مع وكيل</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="logo-icon"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2L2 10v16h8v-8h8v8h8V10L14 2z" fill="url(#lg2)"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="28" y2="28"><stop offset="0%" stop-color="#C9A227"/><stop offset="100%" stop-color="#F0C040"/></linearGradient></defs></svg></div>
+            <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+          </a>
+          <p class="footer-desc">العقارات السورية الذهبية — منصتك العقارية الأولى — نربط البائعين بالمشترين بكل سهولة وشفافية.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>تصفح العقارات</h4>
+          <ul>
+            <li><a href="properties.html?type=apartment">شقق للبيع</a></li>
+            <li><a href="properties.html?type=villa">فلل وبيوت</a></li>
+            <li><a href="properties.html?type=land">أراضي</a></li>
+            <li><a href="properties.html?listing=rent">للإيجار</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>المحافظات</h4>
+          <ul>
+            <li><a href="properties.html?gov=damascus">دمشق</a></li>
+            <li><a href="properties.html?gov=aleppo">حلب</a></li>
+            <li><a href="properties.html?gov=homs">حمص</a></li>
+            <li><a href="properties.html?gov=latakia">اللاذقية</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>الخدمات</h4>
+          <ul>
+            <li><a href="sell.html">أضف عقارك</a></li>
+            <li><a href="contacts.html">جهات الاتصال</a></li>
+            <li><a href="dashboard.html">لوحة التحكم</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 العقارات السورية الذهبية — جميع الحقوق محفوظة</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

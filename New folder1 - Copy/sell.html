@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="أضف عقارك مجاناً على منصة العقارات السورية الذهبية وصل إلى آلاف المشترين">
+  <title>أضف عقارك — العقارات السورية الذهبية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/globals.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="العقارات السورية الذهبية">
+        <span class="logo-text">العقارات السورية <span class="logo-accent">الذهبية</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="properties.html" class="nav-link">العقارات</a></li>
+        <li><a href="sell.html" class="nav-link active">أضف عقارك</a></li>
+        <li><a href="contacts.html" class="nav-link">جهات الاتصال</a></li>
+        <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">الرئيسية</a><span>›</span><span>أضف عقارك</span></div>
+      <h1>🏠 أضف عقارك مجاناً</h1>
+      <p>أوصل إلى آلاف المشترين في جميع أنحاء سوريا</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div class="sell-grid">
+        <!-- Form -->
+        <div>
+          <!-- Step 1: Basic Info -->
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>📋 المعلومات الأساسية</h3>
+            <div class="form-group">
+              <label class="form-label">عنوان الإعلان *</label>
+              <input type="text" id="propTitle" class="form-control" placeholder="مثال: شقة فاخرة 3 غرف في المزة — دمشق" maxlength="100">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">نوع العقار *</label>
+                <select id="propType" class="form-control">
+                  <option value="">اختر النوع</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">نوع العرض *</label>
+                <select id="propListing" class="form-control">
+                  <option value="">اختر نوع العرض</option>
+                  <option value="sale">للبيع</option>
+                  <option value="rent">للإيجار</option>
+                  <option value="invest">للاستثمار</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">وصف العقار *</label>
+              <textarea id="propDesc" class="form-control" rows="5" placeholder="اكتب وصفاً مفصلاً عن العقار — الموقع، التشطيب، المرافق، المميزات..."></textarea>
+            </div>
+          </div>
+
+          <!-- Step 2: Location -->
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>📍 الموقع</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">المحافظة *</label>
+                <select id="propGov" class="form-control">
+                  <option value="">اختر المحافظة</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">المنطقة / الحي</label>
+                <input type="text" id="propCity" class="form-control" placeholder="مثال: المزة، الشهبندر...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Details -->
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>📐 التفاصيل والمواصفات</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">المساحة (م²) *</label>
+                <input type="number" id="propArea" class="form-control" placeholder="0" min="1">
+              </div>
+              <div class="form-group">
+                <label class="form-label">السعر (ل.س) *</label>
+                <input type="number" id="propPrice" class="form-control" placeholder="0" min="0">
+                <div id="commissionDisplay" style="margin-top:8px;font-size:0.85rem;color:var(--gold-400);font-weight:600;display:none;"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">عدد الغرف</label>
+                <select id="propRooms" class="form-control">
+                  <option value="0">غير محدد</option>
+                  <option value="1">1 غرفة</option>
+                  <option value="2">2 غرف</option>
+                  <option value="3">3 غرف</option>
+                  <option value="4">4 غرف</option>
+                  <option value="5">5 غرف</option>
+                  <option value="6">6+ غرف</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">عدد الحمامات</label>
+                <select id="propBaths" class="form-control">
+                  <option value="0">غير محدد</option>
+                  <option value="1">1 حمام</option>
+                  <option value="2">2 حمام</option>
+                  <option value="3">3 حمام</option>
+                  <option value="4">4+ حمام</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">رقم الطابق</label>
+                <input type="number" id="propFloor" class="form-control" placeholder="0 = أرضي" min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label">سنة البناء</label>
+                <input type="number" id="propYear" class="form-control" placeholder="مثال: 2020" min="1900" max="2026">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Features -->
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>✅ المرافق والمميزات</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;" id="featuresGrid">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- Step 5: Images -->
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>📸 صور العقار</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:16px;">أضف صوراً واضحة لعقارك لجذب المزيد من المشترين (يمكنك اختيار أكثر من صورة).</p>
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('propImages').click()" ondragover="event.preventDefault(); this.style.borderColor='var(--gold-500)'; this.style.background='rgba(201,162,39,0.05)';" ondragleave="this.style.borderColor='var(--border)'; this.style.background='transparent';" ondrop="handleImageDrop(event)">
+              <div style="text-align:center;pointer-events:none;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold-500)" stroke-width="2" style="margin-bottom:12px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <div style="font-weight:600;margin-bottom:4px;">اضغط هنا أو اسحب الصور للرفع</div>
+                <div style="font-size:0.8rem;color:var(--text-muted);">صيغ مدعومة: JPG, PNG, WEBP</div>
+              </div>
+            </div>
+            <input type="file" id="propImages" multiple accept="image/*" style="display:none;" onchange="handleImageSelect(event)">
+            <div id="imagePreviewGrid" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;"></div>
+          </div>
+
+          <!-- Step 6: Contact Info -->
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>📞 معلومات التواصل</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">اسمك *</label>
+                <input type="text" id="agentName" class="form-control" placeholder="اسمك الكامل">
+              </div>
+              <div class="form-group">
+                <label class="form-label">رقم الهاتف *</label>
+                <input type="tel" id="agentPhone" class="form-control" placeholder="09XXXXXXXX">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input type="email" id="agentEmail" class="form-control" placeholder="example@email.com">
+            </div>
+          </div>
+
+          <!-- Commission Agreement -->
+          <div class="form-card" style="margin-bottom:20px;background:rgba(201,162,39,0.05);border-color:var(--gold-500);">
+            <label style="display:flex;align-items:center;gap:12px;cursor:pointer;">
+              <input type="checkbox" id="commissionAgree" style="accent-color:var(--gold-500);width:20px;height:20px;flex-shrink:0;">
+              <span style="font-weight:600;font-size:0.95rem;">أتعهد بدفع عمولة قدرها 2% للمنصة عند إتمام العملية عبر الموقع.</span>
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <div style="display:flex;gap:12px;">
+            <button class="btn btn-primary btn-lg" onclick="submitProperty()" style="flex:1;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              نشر الإعلان مجاناً
+            </button>
+            <button class="btn btn-ghost btn-lg" onclick="previewProperty()">معاينة</button>
+          </div>
+        </div>
+
+        <!-- Sidebar Tips -->
+        <div>
+          <div class="tips-card" style="margin-bottom:20px;">
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              نصائح لإعلان ناجح
+            </h4>
+            <div class="tips-list">
+              <div class="tip-item"><div class="tip-dot"></div><span>اكتب عنواناً واضحاً يتضمن النوع والموقع</span></div>
+              <div class="tip-item"><div class="tip-dot"></div><span>حدد السعر بدقة لجذب المشترين الجادين</span></div>
+              <div class="tip-item"><div class="tip-dot"></div><span>اذكر كل المرافق والمميزات المتاحة</span></div>
+              <div class="tip-item"><div class="tip-dot"></div><span>أضف وصفاً شاملاً ومفصلاً</span></div>
+              <div class="tip-item"><div class="tip-dot"></div><span>تأكد من صحة رقم الهاتف للتواصل</span></div>
+            </div>
+          </div>
+
+          <div class="glass-card" style="padding:20px;margin-bottom:16px;">
+            <h4 style="font-weight:700;margin-bottom:12px;color:var(--gold-400);">📊 إحصائيات المنصة</h4>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;justify-content:space-between;font-size:0.88rem;">
+                <span style="color:var(--text-muted)">المشترين النشطين</span>
+                <strong>+12,000</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.88rem;">
+                <span style="color:var(--text-muted)">متوسط وقت البيع</span>
+                <strong>21 يوم</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.88rem;">
+                <span style="color:var(--text-muted)">معدل النجاح</span>
+                <strong style="color:var(--emerald);">87%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card" style="padding:20px;text-align:center;">
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">هل تحتاج مساعدة؟</p>
+            <a href="contacts.html" class="btn btn-outline" style="width:100%;justify-content:center;">تواصل مع وكيل</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal" style="max-width:460px;text-align:center;">
+      <div class="modal-body" style="padding:48px 32px;">
+        <div style="font-size:4rem;margin-bottom:16px;">🎉</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:8px;">تم نشر إعلانك بنجاح!</h3>
+        <p style="color:var(--text-secondary);margin-bottom:24px;">سيتواصل معك المشترون المهتمون قريباً على رقمك المسجل.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="properties.html" class="btn btn-primary">تصفح العقارات</a>
+          <button class="btn btn-ghost" onclick="closeModal('successModal');resetForm()">إضافة عقار آخر</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:24px;"><p>© 2025 العقارات السورية الذهبية</p></div>
+    </div>
+  </footer>
+
+  <!-- Support Modal -->
+  <div class="modal-overlay" id="supportModal">
+    <div class="modal" style="max-width:480px">
+      <div class="support-modal-header">
+        <div class="support-modal-icon">💬</div>
+        <h2>خدمة العملاء</h2>
+        <p style="color:var(--text-muted)">اترك رسالتك وسنقوم بالرد عليك في أقرب وقت</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" id="suppName" class="form-control" placeholder="أدخل اسمك">
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف / واتساب</label>
+          <input type="text" id="suppPhone" class="form-control" placeholder="09xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>رسالتك أو استفسارك</label>
+          <textarea id="suppMsg" class="form-control" rows="4" placeholder="اكتب استفسارك هنا..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('supportModal')">إلغاء</button>
+        <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="submitSupportMsg()">إرسال الاستفسار</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sell.js"></script>
+</body>
+</html>
+
