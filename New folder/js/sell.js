@@ -6,32 +6,32 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
 function initSellPage() {
   const user = getCurrentUser();
-  if (!user) { 
-    showToast('يرجى تسجيل الدخول أولاً', 'error'); 
-    setTimeout(() => window.location.href = 'login.html', 1500); 
-    return; 
+  if (!user) {
+    showToast('يرجى تسجيل الدخول أولاً', 'error');
+    setTimeout(() => window.location.href = 'login.html', 1500);
+    return;
   }
 
   // Populate selects
   const typeSel = document.getElementById('propType');
   const govSel = document.getElementById('propGov');
-  
-  PROPERTY_TYPES.forEach(t => { 
-    const o = document.createElement('option'); 
-    o.value = t.id; 
-    o.textContent = t.icon + ' ' + t.name; 
-    if (typeSel) typeSel.appendChild(o); 
+
+  PROPERTY_TYPES.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t.id;
+    o.textContent = t.icon + ' ' + t.name;
+    if (typeSel) typeSel.appendChild(o);
   });
-  
-  GOVERNORATES.forEach(g => { 
-    const o = document.createElement('option'); 
-    o.value = g.id; 
-    o.textContent = g.icon + ' ' + g.name; 
-    if (govSel) govSel.appendChild(o); 
+
+  GOVERNORATES.forEach(g => {
+    const o = document.createElement('option');
+    o.value = g.id;
+    o.textContent = g.icon + ' ' + g.name;
+    if (govSel) govSel.appendChild(o);
   });
 
   // Features
-  const features = ['موقف سيارة','تكييف مركزي','مولد كهربائي','مصعد','شرفة','حديقة','مسبح','أمن 24/7','ديكور فاخر','مفروشة'];
+  const features = ['موقف سيارة', 'تكييف مركزي', 'مولد كهربائي', 'مصعد', 'شرفة', 'حديقة', 'مسبح', 'أمن 24/7', 'ديكور فاخر', 'مفروشة'];
   const featGrid = document.getElementById('featuresGrid');
   if (featGrid) {
     featGrid.innerHTML = features.map(f => `
@@ -58,45 +58,45 @@ function initSellPage() {
 function setupImageUpload() {
   const uploadArea = document.getElementById('uploadArea');
   const fileInput = document.getElementById('propImages');
-  
+
   if (!uploadArea || !fileInput) return;
-  
+
   // Click to upload
-  uploadArea.onclick = function(e) {
+  uploadArea.onclick = function (e) {
     e.preventDefault();
     e.stopPropagation();
     fileInput.click();
   };
-  
+
   // File input change
-  fileInput.onchange = function(e) {
+  fileInput.onchange = function (e) {
     e.preventDefault();
     if (this.files && this.files.length > 0) {
       processFiles(this.files);
     }
     this.value = ''; // Reset for re-select
   };
-  
+
   // Drag and drop
-  uploadArea.ondragover = function(e) {
+  uploadArea.ondragover = function (e) {
     e.preventDefault();
     e.stopPropagation();
     this.style.borderColor = 'var(--gold-500)';
     this.style.background = 'rgba(201,162,39,0.1)';
   };
-  
-  uploadArea.ondragleave = function(e) {
+
+  uploadArea.ondragleave = function (e) {
     e.preventDefault();
     this.style.borderColor = 'var(--border)';
     this.style.background = 'transparent';
   };
-  
-  uploadArea.ondrop = function(e) {
+
+  uploadArea.ondrop = function (e) {
     e.preventDefault();
     e.stopPropagation();
     this.style.borderColor = 'var(--border)';
     this.style.background = 'transparent';
-    
+
     if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       processFiles(e.dataTransfer.files);
     }
@@ -106,49 +106,49 @@ function setupImageUpload() {
 function processFiles(files) {
   const previewGrid = document.getElementById('imagePreviewGrid');
   if (!previewGrid) return;
-  
+
   let addedCount = 0;
-  
+
   Array.from(files).forEach(file => {
     // Validate type
     if (!file.type || !file.type.startsWith('image/')) {
       showToast(`"${file.name}" ليس ملف صورة`, 'error');
       return;
     }
-    
+
     // Validate size
     if (file.size > MAX_FILE_SIZE) {
       showToast(`"${file.name}" أكبر من 2MB`, 'error');
       return;
     }
-    
+
     // Check limit
     if (selectedImages.length >= MAX_IMAGES) {
       showToast(`الحد الأقصى ${MAX_IMAGES} صور`, 'error');
       return;
     }
-    
+
     // Read file
     const reader = new FileReader();
-    
-    reader.onload = function(e) {
+
+    reader.onload = function (e) {
       if (e.target && e.target.result) {
-        selectedImages.push({ 
-          name: file.name, 
-          data: e.target.result 
+        selectedImages.push({
+          name: file.name,
+          data: e.target.result
         });
         addedCount++;
         renderPreviews();
       }
     };
-    
-    reader.onerror = function() {
+
+    reader.onerror = function () {
       showToast(`خطأ في قراءة "${file.name}"`, 'error');
     };
-    
+
     reader.readAsDataURL(file);
   });
-  
+
   if (addedCount > 0) {
     showToast(`تم إضافة ${addedCount} صورة ✅`, 'success');
   }
@@ -157,12 +157,12 @@ function processFiles(files) {
 function renderPreviews() {
   const grid = document.getElementById('imagePreviewGrid');
   if (!grid) return;
-  
+
   if (selectedImages.length === 0) {
     grid.innerHTML = '';
     return;
   }
-  
+
   grid.innerHTML = selectedImages.map((img, i) => `
     <div style="position:relative;width:100px;height:100px;border-radius:8px;overflow:hidden;border:2px solid var(--border);flex-shrink:0;">
       <img src="${img.data}" alt="${img.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23333%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 x=%2250%22 y=%2250%22 text-anchor=%22middle%22>صورة</text></svg>'">
@@ -170,7 +170,7 @@ function renderPreviews() {
       ${i === 0 ? '<span style="position:absolute;bottom:0;left:0;right:0;background:var(--gold-500);color:var(--navy-900);font-size:0.65rem;font-weight:700;text-align:center;padding:2px;">رئيسية</span>' : ''}
     </div>
   `).join('');
-  
+
   // Update upload area text
   const uploadArea = document.getElementById('uploadArea');
   if (uploadArea) {
@@ -250,7 +250,7 @@ function submitProperty() {
 
   saveProperty(newProp);
   showToast('تم نشر إعلانك بنجاح! 🎉', 'success');
-  
+
   // Show success modal
   setTimeout(() => {
     openModal('successModal');
@@ -258,14 +258,14 @@ function submitProperty() {
 }
 
 function resetForm() {
-  const fields = ['propTitle','propType','propListing','propDesc','propGov','propCity','propArea','propPrice','propRooms','propBaths','propFloor','propYear'];
+  const fields = ['propTitle', 'propType', 'propListing', 'propDesc', 'propGov', 'propCity', 'propArea', 'propPrice', 'propRooms', 'propBaths', 'propFloor', 'propYear'];
   fields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-  
+
   const commission = document.getElementById('commissionAgree');
   if (commission) commission.checked = false;
-  
+
   document.querySelectorAll('#featuresGrid input').forEach(cb => cb.checked = false);
-  
+
   selectedImages = [];
   renderPreviews();
 }
